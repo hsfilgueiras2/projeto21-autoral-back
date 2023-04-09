@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 export type RegisterParams = Pick<User, "email" | "password" | "username" | "image">;
 //functions
 async function registerUser({ email, password, username, image }: RegisterParams){
+    
     const hashedPassword = await bcrypt.hash(password, 12);
     return userRepository.create({
         email,
@@ -14,9 +15,10 @@ async function registerUser({ email, password, username, image }: RegisterParams
         username,
         image
     });
+    
 }
 //export
 const registerService = {
-    
+    registerUser,
 }
 export default registerService;

@@ -25,12 +25,10 @@ async function logIn(params: LogInParams): Promise<LogInResult>{
     await validatePasswordOrFail(password, user.password);
   
     const token = await createSession(user.id);
-
-
     return {
         user: exclude(user, "password"),
         token,
-      };
+    };
 }
 async function getUserOrFail(email: string): Promise<GetUserOrFailResult> {
     const user = await userRepository.findByEmail(email, { id: true, email: true, password: true });
@@ -39,6 +37,7 @@ async function getUserOrFail(email: string): Promise<GetUserOrFailResult> {
 }
 async function createSession(userId: number) {
     const token = jwt.sign({ userId }, process.env.JWT_SECRET);
+    await sessionRepository.close(userId)
     await sessionRepository.create({
       token,
       userId,
