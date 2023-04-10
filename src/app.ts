@@ -10,6 +10,7 @@ import { storiesRouter } from "./routers/stories-router";
 const app = express();
 app
     .use(express.json())
+    .use(cors())
     .use("/login", loginRouter)
     .use("/register", registerRouter)
     .use("/markers", markersRouter)

@@ -4,6 +4,7 @@ import registerService from "@/services/register-service";
 import httpStatus from "http-status";
 
 export async function registerPost(req:Request, res:Response){
+  console.log("cheguei no registerpost")
     try{
     console.log(req.body)
     const {email,password,username,image} = req.body as RegisterParams;
@@ -13,5 +14,6 @@ export async function registerPost(req:Request, res:Response){
         email: user.email,
       });
     }
-    catch(err){console.log(err)}
+    catch(err){console.log(err)
+    }
 }

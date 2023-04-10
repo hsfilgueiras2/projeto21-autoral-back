@@ -8,6 +8,7 @@ async function create(data: Prisma.SessionUncheckedCreateInput) {
 }
 async function close(userId: number ){
   const sessionToDelete = await findByUserId(userId)
+  if (sessionToDelete == null) return;
   return prisma.session.delete({
     where:{id:sessionToDelete.id}
   })

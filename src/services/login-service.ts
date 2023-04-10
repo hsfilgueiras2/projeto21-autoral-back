@@ -19,11 +19,8 @@ type GetUserOrFailResult = Pick<User, "id" | "email" | "password">;
 //functions
 async function logIn(params: LogInParams): Promise<LogInResult>{
     const { email, password } = params;
-
     const user = await getUserOrFail(email);
-  
     await validatePasswordOrFail(password, user.password);
-  
     const token = await createSession(user.id);
     return {
         user: exclude(user, "password"),
@@ -31,6 +28,7 @@ async function logIn(params: LogInParams): Promise<LogInResult>{
     };
 }
 async function getUserOrFail(email: string): Promise<GetUserOrFailResult> {
+    console.log(email)
     const user = await userRepository.findByEmail(email, { id: true, email: true, password: true });
   
     return user;
@@ -46,6 +44,7 @@ async function createSession(userId: number) {
     return token;
 }
 async function validatePasswordOrFail(password: string, userPassword: string) {
+    console.log(password)
     const isPasswordValid = await bcrypt.compare(password, userPassword);
 }
 

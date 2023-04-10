@@ -37,12 +37,13 @@ model Marker {
   Story    Story    @relation(fields: [storyId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  synopsis String
 }
 
 model Story{
   id Int @id @default(autoincrement())
   images String[]
-  text String
+  text String[]
   links String[]
   Marker Marker[]
   createdAt DateTime @default(now())
